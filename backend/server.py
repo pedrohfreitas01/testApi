@@ -1,11 +1,13 @@
 from flask import Flask
-from app.routes import init_routes
+from flask_cors import CORS
+from app.routes import registrar_rotas
 
-app = Flask(__name__)
-
-
-init_routes(app)
-
+def criar_app():
+    app = Flask(__name__)
+    CORS(app, resources={r"/*": {"origins": "*"}}) 
+    registrar_rotas(app)
+    return app
 
 if __name__ == '__main__':
+    app = criar_app()  
     app.run(debug=True)
